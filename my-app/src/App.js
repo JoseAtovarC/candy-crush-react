@@ -57,7 +57,7 @@ function App() {
       const decideColor = currentColorArray[i];
       const isBlank = currentColorArray[i] === blank
 
-      if (columnofThree.every((v) => currentColorArray[v] === decideColor && isBlank)) {
+      if (columnofThree.every((v) => currentColorArray[v] === decideColor && !isBlank)) {
         setScoreDisplay((score) => score + 3)
         columnofThree.forEach((v) => (currentColorArray[v] = blank));
         return true
@@ -173,6 +173,7 @@ function App() {
 
 
   useEffect(() => {
+    
     createBoard();
   }, []);
 
