@@ -20,9 +20,10 @@ export const ScoreBoard = ({score}) => {
  
       <Card.Body
       >
-        <Card.Title >Livesafers Crush</Card.Title>
+        <Card.Title >   Score</Card.Title>
         <Card.Text>
-        {score}
+           
+            {score}
         </Card.Text>
         <Button variant="danger">Save</Button>
       </Card.Body>

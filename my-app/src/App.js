@@ -8,6 +8,7 @@ import { React, useState, useEffect } from "react";
  import green from './img/greencandy.jpg'
  import blank from './img/blank.png'
  import ScoreBoard from "./components/score-boards";
+ import {FaCandyCane} from 'react-icons/fa'
 
 const width = 8;
 const candyColor = [blue, green, orange, purple, red, yellow];
@@ -198,8 +199,14 @@ function App() {
   ]);
 
   return (
-    <div className="app">
-      <div className="game">
+    <div className="  app">
+
+      <div className="mt-5">
+
+      <ScoreBoard score={scoreDisplay}/>
+      </div>
+ 
+      <div className="m-5  game">
         {currentColorArray.map((v, index) => {
           return (
             <img
@@ -218,7 +225,12 @@ function App() {
           );
         })}
       </div>
-      <ScoreBoard score={scoreDisplay}/>
+      <div className="mt-5">
+
+     <h1 style={{color:"white"}}>lifesavers Crush
+     <span style={{color:"rgb(250, 168, 182)", fontSize:"4rem"}}><FaCandyCane/></span>
+     </h1>
+      </div>
       
     </div>
   );
