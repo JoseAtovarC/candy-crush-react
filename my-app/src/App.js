@@ -18,7 +18,9 @@ function App() {
   let [currentColorArray, setCurrentColorArray] = useState([]);
   const [squareBeingDrag, setsquareBeingDrag] = useState(null);
   const [squareBeingReplace, setsquareBeingReplace] = useState(null)
-  const [scoreDisplay, setScoreDisplay] = useState(0)
+  const [scoreDisplay, setScoreDisplay] = 
+  useState(isNaN(parseInt(localStorage.getItem('score'))) ? 0:
+  parseInt(localStorage.getItem('score')) )
 
   const checkForColumnofFour = () => {
     for (let i = 0; i <= 39; i++) {

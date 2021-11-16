@@ -2,32 +2,38 @@
 import {Card,Button} from 'react-bootstrap'
 
 
+
+
 export const ScoreBoard = ({score}) => {
-    
+
+
+
+
     return(
 
     <div>
-        
-
-        <Card
+         <Card
        
-        style={{
-            backgroundColor:"rgb(250, 168, 182)",
-            width: '18rem' }}
-            text="white"
-            >
+       style={{
+           backgroundColor:"rgb(250, 168, 182)",
+           width: '18rem' }}
+           text="white"
+           >
 
- 
-      <Card.Body
-      >
-        <Card.Title >   Score</Card.Title>
-        <Card.Text>
-           
-            {score}
-        </Card.Text>
-        <Button variant="danger">Save</Button>
-      </Card.Body>
-    </Card>
+
+     <Card.Body
+     >
+       <Card.Title >   Score</Card.Title>
+       <Card.Text>
+         
+         {score}
+       </Card.Text>
+       <Button variant="danger" onClick={()=>{localStorage.setItem('score',score)
+      
+       }
+   }>Save</Button>
+     </Card.Body>
+   </Card>
     </div>
     )
 }

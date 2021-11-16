@@ -2,11 +2,12 @@
 body{
   background-image: url('./img/candybackground.jpg');
   background-size: cover;
-  /* color: rgb(250, 168, 182); */
+ 
 }
 
 .app{
   display:flex;
+  flex-wrap: wrap;
   padding: 30px;
 }
 
