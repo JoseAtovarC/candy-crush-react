@@ -7,6 +7,7 @@ import { React, useState, useEffect } from "react";
  import yellow from './img/yellowcandy.jpg'
  import green from './img/greencandy.jpg'
  import blank from './img/blank.png'
+ import ScoreBoard from "./components/score-boards";
 
 const width = 8;
 const candyColor = [blue, green, orange, purple, red, yellow];
@@ -16,13 +17,16 @@ function App() {
   let [currentColorArray, setCurrentColorArray] = useState([]);
   const [squareBeingDrag, setsquareBeingDrag] = useState(null);
   const [squareBeingReplace, setsquareBeingReplace] = useState(null)
+  const [scoreDisplay, setScoreDisplay] = useState(0)
 
   const checkForColumnofFour = () => {
     for (let i = 0; i <= 39; i++) {
       const columnofFour = [i, i + width, i + width * 2, i + width * 3];
       const decideColor = currentColorArray[i];
+      const isBlank = currentColorArray[i] === blank
 
-      if (columnofFour.every((v) => currentColorArray[v] === decideColor)) {
+      if (columnofFour.every((v) => currentColorArray[v] === decideColor && !isBlank)) {
+        setScoreDisplay((score) => score + 4)
         columnofFour.forEach((v) => (currentColorArray[v] = blank));
         return true
       }
@@ -36,9 +40,11 @@ function App() {
       const notValid = [
         6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 47, 47, 54, 55, 63, 64,
       ];
+      const isBlank = currentColorArray[i] === blank
       if (notValid.includes(i)) continue;
 
-      if (rowofFour.every((v) => currentColorArray[v] === decideColor)) {
+      if (rowofFour.every((v) => currentColorArray[v] === decideColor && !isBlank)) {
+        setScoreDisplay((score) => score + 4)
         rowofFour.forEach((v) => (currentColorArray[v] = blank));
         return true
       }
@@ -49,8 +55,10 @@ function App() {
     for (let i = 0; i <= 47; i++) {
       const columnofThree = [i, i + width, i + width * 2];
       const decideColor = currentColorArray[i];
+      const isBlank = currentColorArray[i] === blank
 
-      if (columnofThree.every((v) => currentColorArray[v] === decideColor)) {
+      if (columnofThree.every((v) => currentColorArray[v] === decideColor && isBlank)) {
+        setScoreDisplay((score) => score + 3)
         columnofThree.forEach((v) => (currentColorArray[v] = blank));
         return true
       }
@@ -65,9 +73,11 @@ function App() {
         5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53,
         54, 55, 62, 63, 64,
       ];
+      const isBlank = currentColorArray[i] === blank
       if (notValid.includes(i)) continue;
 
-      if (rowofThree.every((v) => currentColorArray[v] === decideColor)) {
+      if (rowofThree.every((v) => currentColorArray[v] === decideColor && !isBlank)) {
+        setScoreDisplay((score) => score + 3)
         rowofThree.forEach((v) => (currentColorArray[v] = blank));
         return true
       }
@@ -80,12 +90,12 @@ function App() {
       const firstRow = [0, 1, 2, 3, 4, 5, 6, 7];
       const isFirstRow = firstRow.includes(i);
 
-      if (isFirstRow && currentColorArray[i] === "") {
+      if (isFirstRow && currentColorArray[i] === blank) {
         let randomNumber = Math.floor(Math.random() * candyColor.length);
 
         currentColorArray[i] = candyColor[randomNumber];
       }
-      if (currentColorArray[i + width] === "") {
+      if (currentColorArray[i + width] === blank) {
         currentColorArray[i + width] = currentColorArray[i];
         currentColorArray[i] = blank;
       }
@@ -111,6 +121,7 @@ function App() {
     console.log("dragend");
     const squareBeingDraggedId = parseInt(squareBeingDrag.getAttribute('data-id'))
     const squareBeingReplacedId = parseInt(squareBeingReplace.getAttribute('data-id'))
+
     currentColorArray[squareBeingReplacedId] = squareBeingDrag.getAttribute('src')
     currentColorArray[squareBeingDraggedId] = squareBeingReplace.getAttribute('src')
 
@@ -206,7 +217,7 @@ function App() {
           );
         })}
       </div>
-
+      <ScoreBoard score={scoreDisplay}/>
       
     </div>
   );
